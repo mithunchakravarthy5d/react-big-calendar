@@ -1,0 +1,579 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "5D POC REST API",
+    "description": "Document to show a list of APIs used in 5D POC"
+  },
+  "host": "undefined",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "accessToken": {
+      "type": "apiKey",
+      "name": "x-access-token",
+      "in": "header"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/swagger-output": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/server/api/v1.0/users/add": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addUser"
+            },
+            "description": "API that takes request & add new user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/addedUser"
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "422": {
+            "description": "Unprocessable entity."
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/server/api/v1.0/users/list": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "searchQuery",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userList"
+            },
+            "description": "API that fetches all the users , if search query isprovided it will fetch user according to name and company name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/usersList"
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "422": {
+            "description": "Unprocessable entity."
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/server/api/v1.0/users/edit": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateUser"
+            },
+            "description": "API that takes request & update user details"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/updatedUser"
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "422": {
+            "description": "Unprocessable entity."
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/server/api/v1.0/users/view": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/viewUser"
+            },
+            "description": "API that takes request & get details of particular user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/viewedUser"
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "422": {
+            "description": "Unprocessable entity."
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/server/api/v1.0/users/remove": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/deleteUser"
+            },
+            "description": "API that takes request & delete a particular user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/deletedUser"
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "422": {
+            "description": "Unprocessable entity."
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "addUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": ""
+        },
+        "company": {
+          "type": "string",
+          "example": ""
+        },
+        "gender": {
+          "type": "string",
+          "example": ""
+        },
+        "dob": {
+          "type": "string",
+          "example": ""
+        },
+        "countryCode": {
+          "type": "string",
+          "example": ""
+        },
+        "mobile": {
+          "type": "string",
+          "example": ""
+        },
+        "mobileWithCountryCode": {
+          "type": "string",
+          "example": ""
+        },
+        "role": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "name",
+        "company",
+        "gender",
+        "dob",
+        "countryCode",
+        "mobile",
+        "mobileWithCountryCode",
+        "role"
+      ]
+    },
+    "addedUser": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "number",
+          "example": 200
+        },
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "User added successfully."
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Jaya Sharma"
+            },
+            "company": {
+              "type": "string",
+              "example": "5D Solutions"
+            },
+            "gender": {
+              "type": "string",
+              "example": "FEMALE"
+            },
+            "dob": {
+              "type": "string",
+              "example": "01/01/1993"
+            },
+            "countryCode": {
+              "type": "string",
+              "example": "+91"
+            },
+            "mobile": {
+              "type": "string",
+              "example": "123456789"
+            },
+            "mobileWithCountryCode": {
+              "type": "string",
+              "example": "+91123456789"
+            },
+            "role": {
+              "type": "string",
+              "example": "Admin"
+            },
+            "_id": {
+              "type": "string",
+              "example": "65770f66cdb07076ac7894cd"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2023-12-11T13:32:22.171Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2023-12-11T13:32:22.171Z"
+            }
+          }
+        }
+      }
+    },
+    "userList": {
+      "type": "object",
+      "properties": {
+        "searchQuery": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "searchQuery"
+      ]
+    },
+    "usersList": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "number",
+          "example": 200
+        },
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Users list fetched successfully."
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Jaya Sharma"
+              },
+              "company": {
+                "type": "string",
+                "example": "5D Solutions"
+              },
+              "gender": {
+                "type": "string",
+                "example": "FEMALE"
+              },
+              "dob": {
+                "type": "string",
+                "example": "01/01/1993"
+              },
+              "countryCode": {
+                "type": "string",
+                "example": "+91"
+              },
+              "mobile": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "mobileWithCountryCode": {
+                "type": "string",
+                "example": "+91123456789"
+              },
+              "role": {
+                "type": "string",
+                "example": "Admin"
+              },
+              "_id": {
+                "type": "string",
+                "example": "65770f66cdb07076ac7894cd"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2023-12-11T13:32:22.171Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2023-12-11T13:32:22.171Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "updateUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        },
+        "name": {
+          "type": "string",
+          "example": ""
+        },
+        "company": {
+          "type": "string",
+          "example": ""
+        },
+        "gender": {
+          "type": "string",
+          "example": ""
+        },
+        "dob": {
+          "type": "string",
+          "example": ""
+        },
+        "role": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "company",
+        "gender",
+        "dob",
+        "role"
+      ]
+    },
+    "updatedUser": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "number",
+          "example": 200
+        },
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "User updated successfully."
+        }
+      }
+    },
+    "viewUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "viewedUser": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "number",
+          "example": 200
+        },
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "User fetched successfully."
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Jaya Sharma"
+            },
+            "company": {
+              "type": "string",
+              "example": "5D Solutions"
+            },
+            "gender": {
+              "type": "string",
+              "example": "FEMALE"
+            },
+            "dob": {
+              "type": "string",
+              "example": "01/01/1993"
+            },
+            "countryCode": {
+              "type": "string",
+              "example": "+91"
+            },
+            "mobile": {
+              "type": "string",
+              "example": "123456789"
+            },
+            "mobileWithCountryCode": {
+              "type": "string",
+              "example": "+91123456789"
+            },
+            "role": {
+              "type": "string",
+              "example": "Admin"
+            },
+            "_id": {
+              "type": "string",
+              "example": "65770f66cdb07076ac7894cd"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2023-12-11T13:32:22.171Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2023-12-11T13:32:22.171Z"
+            }
+          }
+        }
+      }
+    },
+    "deleteUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "deletedUser": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "User removed successfully"
+        }
+      }
+    }
+  }
+}
